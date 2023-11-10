@@ -16,6 +16,7 @@ var num = flag.Int("num", 2, "茅台商品ID")
 var works = flag.Int("works", 7, "并发数")
 var start = flag.String("time", "09:59:59", "开始时间---不带日期")
 var brwoserPath = flag.String("execPath", "", "浏览器执行路径，路径不能有空格")
+
 func init() {
 	flag.Parse()
 }
@@ -26,7 +27,7 @@ func main() {
 	if *brwoserPath != "" {
 		execPath = *brwoserPath
 	}
-	RE:
+RE:
 	jdSecKill := secKill.NewJdSecKill(execPath, *skuId, *num, *works)
 	jdSecKill.StartTime, err = global.Hour2Unix(*start)
 	if err != nil {
@@ -42,7 +43,7 @@ func main() {
 	err = jdSecKill.Run()
 	if err != nil {
 		if strings.Contains(err.Error(), "exec") {
-			logs.PrintlnInfo("默认浏览器执行路径未找到，"+execPath+"  请重新输入：")
+			logs.PrintlnInfo("默认浏览器执行路径未找到，" + execPath + "  请重新输入：")
 			scanner := bufio.NewScanner(os.Stdin)
 			for scanner.Scan() {
 				execPath = scanner.Text()
